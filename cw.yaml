@@ -1,0 +1,23 @@
+# core-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: core-pod
+spec:
+  containers:
+  - name: core-container
+    image: core-image:latest
+    # Diğer özellikler (örneğin, env, resources) burada belirtilebilir
+
+---
+
+# worker-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: worker-pod
+spec:
+  containers:
+  - name: worker-container
+    image: worker-image:latest
+    # Diğer özellikler (örneğin, env, resources) burada belirtilebilir
