@@ -1,20 +1,16 @@
-FROM php:8.1-apache
-RUN apt-get update && apt-get install -y \
-		libfreetype-dev \
-		libjpeg62-turbo-dev \
-		libpng-dev \
-	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
-	&& docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install -j$(nproc) mysqli pdo pdo_mysql && docker-php-ext-enable mysqli
-RUN apt install -y \ 
-		libmcrypt-dev \
-	&& pecl install mcrypt
+# Kullanılacak temel imajı belirt
+FROM node:14
 
-RUN apt install -y \
-		libonig-dev \
-	&& docker-php-ext-install -j$(nproc) mbstring
+# Çalışma dizinini belirle
+WORKDIR /usr/src/app
 
-RUN a2enmod rewrite
-RUN a2enmod headers
+# Uygulama dosyalarını kopyala
+COPY package.json .
+COPY package-lock.json .
+COPY . .
 
-WORKDIR /var/www/html
+# Bağımlılıkları yükle
+RUN npm install
+
+# Uygulamayı çalıştır
+CMD ["npm", "start"]
