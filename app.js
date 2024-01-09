@@ -13,9 +13,14 @@ app.use((req, res, next) => {
 
 const myQueue = new bull('myQueue', 'redis://127.0.0.1:6379');
 
-app.get("/", function(req, res) {
+app.get("/", async (req, res) => {
   console.log('Get İsteği Geldi');
   res.send("<h1>Sabit Cevap</h1>"); // Sabit bir cevap dönüyor
+  // İşi kuyruğa ekle
+  await myQueue.add({
+    method: req.method,
+    url: req.url,
+  });
 });
 
 app.post('/api/queue-job', async (req, res) => {
