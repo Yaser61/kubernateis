@@ -6,6 +6,12 @@ const port = 3000;
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log('Gelen istek:', req.method, req.url);
+  next();
+});
+
+
 const myQueue = new bull('myQueue', 'redis://127.0.0.1:6379');
 
 app.post('/api/queue-job', async (req, res) => {
