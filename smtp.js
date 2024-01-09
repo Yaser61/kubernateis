@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailOptions = {
-  from: "Kocandan",
+  from: "Node ile gönderilen mail",
   to: "rabiayilmazqwe@gmail.com",
   subject: "Node.js ile SMTP Mail Gönderme",
   text: "Node.js ve Nodemailer kullanarak SMTP üzerinden mail gönderimi hakkında bilgi edindiniz."
