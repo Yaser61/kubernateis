@@ -21,6 +21,13 @@ app.get("/", async (req, res) => {
     method: req.method,
     url: req.url,
   });
+
+  // İşi kuyruktan al ve işle
+  const job = await myQueue.take();
+  const jobData = job.data;
+
+  console.log('Kuyruktan iş alındı ve işleniyor:', jobData);
+  return 'İşlem tamamlandı!';
 });
 
 app.post('/api/queue-job', async (req, res) => {
