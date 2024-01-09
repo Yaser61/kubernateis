@@ -1,6 +1,9 @@
 const express = require('express');
 const bull = require('bull');
 
+const https = require('https');
+const url =  "https://data.ibb.gov.tr/tr/api/3/action/datastore_search?resource_id=f4a205d7-39fd-4900-b7e7-d4a11c0b076d&limit=5"
+
 const app = express();
 const port = 3000;
 
@@ -14,6 +17,12 @@ app.use((req, res, next) => {
 
 const myQueue = new bull('myQueue', 'redis://127.0.0.1:6379');
 
+app.get("/", function(req,res){
+  res.send("<h1>CEVAP</h1>");
+  https.get(url,function(cevap){
+    console.log(cevap);
+  })
+});
 app.post('/api/queue-job', async (req, res) => {
   const jobData = req.body.jobData;
 
